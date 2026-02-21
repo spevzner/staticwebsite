@@ -55,10 +55,16 @@ export default function Home() {
   return (
     <main style={heroStyle}>
       {/* ↓ Change this headline */}
-      <h1 style={headlineStyle}>Welcome to My Website</h1>
+      <h1 style={headlineStyle}>Welcome to Learing English with Real American Tutors</h1>
 
       {/* ↓ Change this tagline */}
       <p style={taglineStyle}>
+        A short description of what this site is about.
+        A short description of what this site is about.
+        A short description of what this site is about.
+        A short description of what this site is about.
+        A short description of what this site is about.
+        A short description of what this site is about.
         A short description of what this site is about.
         Edit this text in <code>src/pages/Home.jsx</code>.
       </p>
