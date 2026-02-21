@@ -6,10 +6,8 @@ import Contact from "./pages/Contact.jsx";
 export default function App() {
   return (
     <BrowserRouter>
-      <nav style={{ display: "flex", gap: 12 }}>
+      <nav style={{ padding: "1rem 2rem", borderBottom: "1px solid #333" }}>
         <Link to="/">Home</Link>
-        <Link to="/about">About</Link>
-        <Link to="/contact">Contact</Link>
       </nav>
 
       <Routes>
@@ -20,5 +18,3 @@ export default function App() {
     </BrowserRouter>
   );
 }
-
-export default App
