@@ -3,15 +3,20 @@
 }
 
 :root {
-  font-family: system-ui, -apple-system, Helvetica, Arial, sans-serif;
+  --blue-primary: #3770b2;
+  --blue-accent:  #5d9cec;
+  --gold:         #ffb606;
+  --text-dark:    #1f2024;
+  --text-muted:   #555e6d;
+
+  font-family: "Open Sans", system-ui, Helvetica, Arial, sans-serif;
   line-height: 1.6;
   font-weight: 400;
-  color: #1a1a2e;
+  color: var(--text-dark);
   background-color: #ffffff;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
@@ -20,17 +25,17 @@ body {
   min-height: 100vh;
 }
 
-h1 {
+h1, h2, h3 {
   line-height: 1.2;
   margin: 0;
 }
 
 a {
-  color: #3b82f6;
+  color: var(--blue-accent);
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 a:hover {
-  color: #1d4ed8;
+  color: var(--blue-primary);
 }

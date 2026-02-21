@@ -8,32 +8,35 @@ const navStyle = {
   justifyContent: "space-between",
   alignItems: "center",
   padding: "1rem 2.5rem",
-  borderBottom: "1px solid #e5e7eb",
-  background: "#ffffff",
+  background: "linear-gradient(135deg, #3770b2 0%, #2a5298 100%)",
   position: "sticky",
   top: 0,
   zIndex: 100,
 };
 
 const logoStyle = {
-  fontWeight: "700",
-  fontSize: "1.2rem",
-  color: "#1a1a2e",
+  fontWeight: "800",
+  fontSize: "1.3rem",
+  color: "#ffffff",
+  letterSpacing: "0.01em",
 };
 
-const navLinksStyle = {
-  display: "flex",
-  gap: "2rem",
+const navLinkStyle = {
+  color: "rgba(255,255,255,0.9)",
+  fontWeight: "600",
+  fontSize: "0.95rem",
+  transition: "color 0.2s",
 };
 
 export default function App() {
   return (
     <BrowserRouter>
       <nav style={navStyle}>
-        <Link to="/" style={logoStyle}>My Website</Link>
-        <div style={navLinksStyle}>
-          <Link to="/about">About</Link>
-          <Link to="/contact">Contact</Link>
+        {/* ↓ Change the site name here */}
+        <Link to="/" style={logoStyle}>English with Americans</Link>
+        <div style={{ display: "flex", gap: "2rem" }}>
+          <Link to="/about" style={navLinkStyle}>About</Link>
+          <Link to="/contact" style={navLinkStyle}>Contact</Link>
         </div>
       </nav>
 
