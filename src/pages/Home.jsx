@@ -13,7 +13,12 @@ const heroStyle = {
   minHeight: "calc(100vh - 62px)",
   textAlign: "center",
   padding: "4rem 2rem",
-  background: "linear-gradient(135deg, #3770b2 0%, #1a3a6b 100%)",
+  // Background: NYC skyline photo with a dark blue overlay so text stays readable.
+  // ↓ If you rename your image file, update the filename here too.
+  backgroundImage: "linear-gradient(rgba(20, 40, 80, 0.65), rgba(10, 20, 50, 0.75)), url('/nyc.jpg')",
+  backgroundSize: "cover",
+  backgroundPosition: "center",
+  backgroundRepeat: "no-repeat",
 };
 
 const headlineStyle = {
@@ -65,8 +70,8 @@ export default function Home() {
 
       {/* ↓ Change this tagline */}
       <p style={taglineStyle}>
-        Practice real conversational English with native American tutors.
-        Flexible scheduling, personalized lessons, and proven results.
+        Practice real conversational English with American English speaking tutors.
+        Flexible scheduling, personalized lessons, and proven results, and it's FREE. 
       </p>
 
       <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", justifyContent: "center" }}>
