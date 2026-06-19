@@ -1,9 +1,7 @@
 import { Link } from "react-router-dom";
+import content from "../content.json";
 
-// ─────────────────────────────────────────────
-// HOME PAGE  —  edit headline, tagline, and
-//              button labels below freely
-// ─────────────────────────────────────────────
+const page = content.pages.find(p => p.id === "home");
 
 const heroStyle = {
   display: "flex",
@@ -58,20 +56,11 @@ const btnOutlineStyle = {
 export default function Home() {
   return (
     <main style={heroStyle}>
-      {/* ↓ Change this headline */}
-      <h1 style={headlineStyle}>
-        Learning English with Real American Tutors
-      </h1>
-
-      {/* ↓ Change this tagline */}
-      <p style={taglineStyle}>
-        Practice real conversational English with native American tutors.
-        Flexible scheduling, personalized lessons, and proven results.
-      </p>
-
+      <h1 style={headlineStyle}>{page.headline}</h1>
+      <p style={taglineStyle}>{page.tagline}</p>
       <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", justifyContent: "center" }}>
-        <Link to="/about" style={btnGoldStyle}>Learn More</Link>
-        <Link to="/contact" style={btnOutlineStyle}>Contact Us</Link>
+        <Link to="/about" style={btnGoldStyle}>{page.ctaPrimary}</Link>
+        <Link to="/contact" style={btnOutlineStyle}>{page.ctaSecondary}</Link>
       </div>
     </main>
   );

@@ -1,7 +1,10 @@
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import content from "./content.json";
 import Home from "./pages/Home.jsx";
 import About from "./pages/About.jsx";
 import Contact from "./pages/Contact.jsx";
+import Admin from "./pages/Admin.jsx";
+import ContentPage from "./pages/ContentPage.jsx";
 
 const navStyle = {
   display: "flex",
@@ -28,6 +31,9 @@ const navLinkStyle = {
   transition: "color 0.2s",
 };
 
+const FIXED_IDS = new Set(["home", "about", "contact"]);
+const extraPages = content.pages.filter((p) => !FIXED_IDS.has(p.id));
+
 export default function App() {
   return (
     <BrowserRouter>
@@ -37,6 +43,9 @@ export default function App() {
         <div style={{ display: "flex", gap: "2rem" }}>
           <Link to="/about" style={navLinkStyle}>About</Link>
           <Link to="/contact" style={navLinkStyle}>Contact</Link>
+          {extraPages.map((p) => (
+            <Link key={p.id} to={p.slug} style={navLinkStyle}>{p.title}</Link>
+          ))}
         </div>
       </nav>
 
@@ -44,6 +53,10 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/admin" element={<Admin />} />
+        {extraPages.map((p) => (
+          <Route key={p.id} path={p.slug} element={<ContentPage page={p} />} />
+        ))}
       </Routes>
     </BrowserRouter>
   );

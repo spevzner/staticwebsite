@@ -1,26 +1,18 @@
-// ─────────────────────────────────────────────
-// CONTACT PAGE  —  edit the content below freely
-// ─────────────────────────────────────────────
+import content from "../content.json";
+
+const page = content.pages.find(p => p.id === "contact");
 
 export default function Contact() {
   return (
     <main style={{ maxWidth: "640px", margin: "0 auto", padding: "3rem 2rem" }}>
-      <h1>Contact</h1>
-
-      <p>
-        Get in touch with us using the details below.
-      </p>
-
-      {/* Add, remove, or change any contact details here */}
+      <h1>{page.title}</h1>
+      <p>{page.intro}</p>
       <ul style={{ listStyle: "none", padding: 0, lineHeight: "2" }}>
-        <li>Email: <a href="mailto:you@example.com">you@example.com</a></li>
-        <li>Phone: +1 (555) 000-0000</li>
-        <li>Location: Your City, Country</li>
+        <li>Email: <a href={`mailto:${page.email}`}>{page.email}</a></li>
+        <li>Phone: {page.phone}</li>
+        <li>Location: {page.location}</li>
       </ul>
-
-      <p>
-        Additional notes or instructions can go here.
-      </p>
+      {page.note && <p>{page.note}</p>}
     </main>
   );
 }

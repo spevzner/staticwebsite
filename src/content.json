@@ -1,0 +1,34 @@
+{
+  "pages": [
+    {
+      "id": "home",
+      "slug": "/",
+      "headline": "Learning English with Real American Tutors",
+      "tagline": "Practice real conversational English with native American tutors. Flexible scheduling, personalized lessons, and proven results.",
+      "ctaPrimary": "Learn More",
+      "ctaSecondary": "Contact Us"
+    },
+    {
+      "id": "about",
+      "slug": "/about",
+      "title": "About",
+      "body": "Write something about yourself or your project here.\n\nYou can add or remove paragraphs by editing the text in the admin panel."
+    },
+    {
+      "id": "contact",
+      "slug": "/contact",
+      "title": "Contact",
+      "intro": "Get in touch with us using the details below.",
+      "email": "you@example.com",
+      "phone": "+1 (555) 000-0000",
+      "location": "Your City, Country",
+      "note": "Additional notes or instructions can go here."
+    },
+    {
+      "id": "page-1781652413463",
+      "slug": "/new-page-test-page",
+      "title": "New Page Test page",
+      "body": "Test text here in the body. Let's see how it's coming out. "
+    }
+  ]
+}
