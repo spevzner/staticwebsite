@@ -1,0 +1,7 @@
+services:
+  web:
+    image: ghcr.io/spevzner/english-with-americans:latest
+    container_name: english-with-americans
+    restart: unless-stopped
+    ports:
+      - "80:80"
