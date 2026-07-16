@@ -53,9 +53,18 @@ const btnOutlineStyle = {
   letterSpacing: "0.02em",
 };
 
+const heroImageStyle = {
+  maxWidth: "320px",
+  width: "100%",
+  borderRadius: "10px",
+  marginBottom: "2rem",
+  boxShadow: "0 8px 24px rgba(0,0,0,0.25)",
+};
+
 export default function Home() {
   return (
     <main style={heroStyle}>
+      {page.image && <img src={page.image} alt="" style={heroImageStyle} />}
       <h1 style={headlineStyle}>{page.headline}</h1>
       <p style={taglineStyle}>{page.tagline}</p>
       <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", justifyContent: "center" }}>

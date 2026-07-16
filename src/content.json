@@ -12,7 +12,7 @@
       "id": "about",
       "slug": "/about",
       "title": "About",
-      "body": "Write something about yourself or your project here.\n\nYou can add or remove paragraphs by editing the text in the admin panel."
+      "body": "![](/uploads/1784237137885-IMG_7023.jpg)\n\nWrite something about yourself or your project here, tell me a story\n\nYou can add or remove paragraphs by editing the text in the admin panel."
     },
     {
       "id": "contact",
@@ -28,7 +28,15 @@
       "id": "page-1781652413463",
       "slug": "/new-page-test-page",
       "title": "New Page Test page",
-      "body": "Test text here in the body. Let's see how it's coming out. "
+      "body": "\n\n:::columns\n\n![](/uploads/1784237055833-IMG_7023.jpg)\n\n\nTest text here in the body. Let's see how it's coming out. Test text here in the body. Let's see how it's coming out. Test text here in the body. Let's see how it's coming out. Test text here in the body. Let's see how it's coming out. Test text here in the body. Let's see how it's coming out. Test text here in the body. Let's see how it's coming out. Test text here in the body. Let's see how it's coming out. \n\n:::\n![](/uploads/1784237068921-IMG_7023.jpg)\n\n\nTest text here in the body. Let's see how it's coming out. \nTest text here in the body. Let's see how it's coming out. Test text here in the body. Let's see how it's coming out. Test text here in the body. Let's see how it's coming out. Test text here in the body. Let's see how it's coming out. Test text here in the body. Let's see how it's coming out. Test text here in the body. Let's see how it's coming out. Test text here in the body. Let's see how it's coming out. \n:::end",
+      "image": "/uploads/1784232726208-IMG_7023.jpg"
+    },
+    {
+      "id": "page-1784228321013",
+      "slug": "/new-page-2",
+      "title": "New Page 2",
+      "body": "TEst page text goes here\nTEst page text goes here\nTEst page text goes here\n\n| Column 1 | Column 2 |\n| --- | --- |\n| Row 1 | Row 1 |\n| Row 2 | Row 2 |\n\nMy favorite image \n\n![](/uploads/1784237285557-IMG_7023.jpg)",
+      "image": "/uploads/1784228342600-IMG_7023.heic"
     }
   ]
 }

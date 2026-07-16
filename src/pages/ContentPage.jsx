@@ -1,10 +1,15 @@
+import renderBody, { PAGE_WIDTH, WIDE_WIDTH } from "./renderBody";
+
 export default function ContentPage({ page }) {
   return (
-    <main style={{ maxWidth: "640px", margin: "0 auto", padding: "3rem 2rem" }}>
-      <h1>{page.title}</h1>
-      {(page.body || "").split("\n\n").filter(Boolean).map((para, i) => (
-        <p key={i}>{para}</p>
-      ))}
+    <main style={{ maxWidth: `${WIDE_WIDTH}px`, margin: "0 auto", padding: "3rem 2rem" }}>
+      <div style={{ maxWidth: `${PAGE_WIDTH}px`, margin: "0 auto" }}>
+        <h1>{page.title}</h1>
+        {page.image && (
+          <img src={page.image} alt="" style={{ maxWidth: "100%", borderRadius: "8px", marginBottom: "1.5rem" }} />
+        )}
+      </div>
+      {renderBody(page.body)}
     </main>
   );
 }

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 
 const s = {
@@ -47,6 +47,15 @@ const s = {
     borderRadius: "6px", fontWeight: "600", fontSize: "0.9rem", cursor: "pointer",
   },
   status: { marginTop: "0.75rem", fontSize: "0.85rem" },
+  imagePreview: {
+    maxWidth: "100%", maxHeight: "160px", display: "block",
+    borderRadius: "6px", marginBottom: "0.5rem", border: "1px solid #e2e8f0",
+  },
+  removeImgBtn: {
+    padding: "0.35rem 0.75rem", background: "#fff", color: "#dc2626",
+    border: "1.5px solid #dc2626", borderRadius: "6px",
+    fontWeight: "600", fontSize: "0.8rem", cursor: "pointer", marginBottom: "0.5rem",
+  },
 };
 
 function slugify(str) {
@@ -54,6 +63,50 @@ function slugify(str) {
 }
 
 const FIXED_IDS = ["home", "about", "contact"];
+
+function ImageField({ page, onChange }) {
+  const [uploading, setUploading] = useState(false);
+
+  const handleFile = async (e) => {
+    const file = e.target.files[0];
+    e.target.value = "";
+    if (!file) return;
+    setUploading(true);
+    try {
+      const r = await fetch(`/api/upload?filename=${encodeURIComponent(file.name)}`, {
+        method: "POST",
+        headers: { "Content-Type": file.type || "application/octet-stream" },
+        body: file,
+      });
+      if (r.ok) {
+        const { url } = await r.json();
+        onChange({ ...page, image: url });
+      }
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  return (
+    <>
+      <label style={s.label}>Featured Image (shown above the text)</label>
+      {page.image && (
+        <>
+          <img src={page.image} alt="" style={s.imagePreview} />
+          <button
+            type="button"
+            style={s.removeImgBtn}
+            onClick={() => onChange({ ...page, image: "" })}
+          >
+            Remove Image
+          </button>
+        </>
+      )}
+      <input type="file" accept="image/*" onChange={handleFile} disabled={uploading} />
+      {uploading && <p style={{ fontSize: "0.85rem", color: "#6b7280" }}>Uploading…</p>}
+    </>
+  );
+}
 
 function HeroEditor({ page, onChange }) {
   const set = (key) => (e) => onChange({ ...page, [key]: e.target.value });
@@ -67,6 +120,7 @@ function HeroEditor({ page, onChange }) {
       <input style={s.input} value={page.ctaPrimary || ""} onChange={set("ctaPrimary")} />
       <label style={s.label}>Secondary Button Label</label>
       <input style={s.input} value={page.ctaSecondary || ""} onChange={set("ctaSecondary")} />
+      <ImageField page={page} onChange={onChange} />
     </>
   );
 }
@@ -87,12 +141,58 @@ function ContactEditor({ page, onChange }) {
       <input style={s.input} value={page.location || ""} onChange={set("location")} />
       <label style={s.label}>Note (optional)</label>
       <textarea style={s.textarea} rows={2} value={page.note || ""} onChange={set("note")} />
+      <ImageField page={page} onChange={onChange} />
     </>
   );
 }
 
 function ContentEditor({ page, onChange, isNew }) {
   const set = (key) => (e) => onChange({ ...page, [key]: e.target.value });
+  const bodyRef = useRef(null);
+  const [uploading, setUploading] = useState(false);
+
+  const insertAtCursor = (snippet) => {
+    const body = page.body || "";
+    const pos = bodyRef.current ? bodyRef.current.selectionStart : body.length;
+    const before = body.slice(0, pos);
+    const after = body.slice(pos);
+    const lead = before && !before.endsWith("\n\n") ? "\n\n" : "";
+    const trail = after && !after.startsWith("\n\n") ? "\n\n" : "";
+    onChange({ ...page, body: `${before}${lead}${snippet}${trail}${after}` });
+  };
+
+  const insertImage = async (e) => {
+    const file = e.target.files[0];
+    e.target.value = "";
+    if (!file) return;
+    setUploading(true);
+    try {
+      const r = await fetch(`/api/upload?filename=${encodeURIComponent(file.name)}`, {
+        method: "POST",
+        headers: { "Content-Type": file.type || "application/octet-stream" },
+        body: file,
+      });
+      if (r.ok) {
+        const { url } = await r.json();
+        insertAtCursor(`![](${url})`);
+      }
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const insertTable = () => {
+    insertAtCursor(
+      "| Column 1 | Column 2 |\n| --- | --- |\n| Row 1 | Row 1 |\n| Row 2 | Row 2 |"
+    );
+  };
+
+  const insertColumns = () => {
+    insertAtCursor(
+      ":::columns\nLeft column text goes here.\n:::\nRight column text goes here.\n:::end"
+    );
+  };
+
   return (
     <>
       <label style={s.label}>Title</label>
@@ -112,7 +212,22 @@ function ContentEditor({ page, onChange, isNew }) {
         </>
       )}
       <label style={s.label}>Body — separate paragraphs with a blank line</label>
-      <textarea style={s.textarea} rows={10} value={page.body || ""} onChange={set("body")} />
+      <textarea ref={bodyRef} style={s.textarea} rows={10} value={page.body || ""} onChange={set("body")} />
+      <label style={s.label}>Insert Image at Cursor</label>
+      <input type="file" accept="image/*" onChange={insertImage} disabled={uploading} />
+      {uploading && <p style={{ fontSize: "0.85rem", color: "#6b7280" }}>Uploading…</p>}
+      <label style={s.label}>Insert Table at Cursor</label>
+      <button type="button" style={{ ...s.addBtn, marginTop: 0 }} onClick={insertTable}>+ Table</button>
+      <p style={{ fontSize: "0.8rem", color: "#6b7280", marginTop: "-0.25rem" }}>
+        Edit the inserted <code>| cell | cell |</code> rows directly in the body text to change columns/rows.
+      </p>
+      <label style={s.label}>Insert Two Columns at Cursor</label>
+      <button type="button" style={{ ...s.addBtn, marginTop: 0 }} onClick={insertColumns}>+ Two Columns</button>
+      <p style={{ fontSize: "0.8rem", color: "#6b7280", marginTop: "-0.25rem" }}>
+        Replace the placeholder text on each side of the <code>:::</code> divider. You can place the cursor
+        inside either side and use Insert Image / Insert Table to add pictures or tables within a column.
+      </p>
+      <ImageField page={page} onChange={onChange} />
     </>
   );
 }
