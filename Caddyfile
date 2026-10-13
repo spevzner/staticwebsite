@@ -1,0 +1,7 @@
+# SITE_ADDRESS set (prod: "linguaglobe.org, www.linguaglobe.org") → Caddy fetches
+# and renews Let's Encrypt certs and redirects HTTP to HTTPS.
+# Unset (staging) → docker-compose.yml defaults it to ":80": plain HTTP, no certs.
+{$SITE_ADDRESS} {
+	encode gzip
+	reverse_proxy web:80
+}

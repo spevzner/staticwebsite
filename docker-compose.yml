@@ -3,5 +3,27 @@ services:
     image: ghcr.io/spevzner/english-with-americans:latest
     container_name: english-with-americans
     restart: unless-stopped
+    expose:
+      - "80"
+
+  # TLS front: terminates HTTPS (auto Let's Encrypt certs) and proxies to web.
+  # SITE_ADDRESS comes from .env on the host; unset → plain HTTP on :80.
+  caddy:
+    image: caddy:2.10-alpine
+    container_name: caddy
+    restart: unless-stopped
     ports:
       - "80:80"
+      - "443:443"
+    environment:
+      - SITE_ADDRESS=${SITE_ADDRESS:-:80}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - web
+
+volumes:
+  caddy_data:
+  caddy_config:
